@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { db } from './config/connection';
 import { UserTypeModule } from './user-type/user-type.module';
 import { TeamModule } from './team/team.module';
+import { AuthModule } from './auth/auth.module';
+import { RecordsModule } from './records/records.module';
 
 @Module({
   imports: [
@@ -17,12 +19,14 @@ import { TeamModule } from './team/team.module';
       password: 'lC140822',
       database: 'challenge',
       synchronize: true,
-      dropSchema: true,
+      dropSchema: false,
       autoLoadEntities: true,
     }),
     AccountsModule,
     UserTypeModule,
     TeamModule,
+    AuthModule,
+    RecordsModule,
   ],
   controllers: [],
   providers: [],
