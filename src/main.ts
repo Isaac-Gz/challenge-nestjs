@@ -9,6 +9,7 @@ async function bootstrap() {
     .setDescription('Challenge description')
     .setVersion('1.0')
     .addTag('Accounts')
+    .addTag('Teams')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
