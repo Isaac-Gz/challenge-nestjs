@@ -1,8 +1,12 @@
-import { Controller, Delete, Get, Patch, Post } from '@nestjs/common';
 import {
+  Controller,
+  Delete,
+  Get,
+  Patch,
+  Post,
   Body,
   Param,
-} from '@nestjs/common/decorators/http/route-params.decorator';
+} from '@nestjs/common';
 import { RecordsService } from './records.service';
 import { Record } from './record.entity';
 import { CreateRecordDto } from './dto/create-record.dto';

@@ -12,6 +12,7 @@ async function bootstrap() {
     .setTitle('Challenge API')
     .setDescription('Challenge description')
     .setVersion('1.0')
+    .addTag('Users')
     .addTag('Accounts')
     .addTag('Teams')
     .addTag('Records')

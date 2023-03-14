@@ -6,13 +6,16 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { Team } from './team.entity';
 import { TeamService } from './team.service';
 
 @Controller('team')
+@UseGuards(AuthGuard())
 @ApiTags('Teams')
 export class TeamController {
   constructor(private teamService: TeamService) {}

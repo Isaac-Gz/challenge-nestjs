@@ -8,8 +8,6 @@ import { TeamModule } from './team/team.module';
 import { AuthModule } from './auth/auth.module';
 import { RecordsModule } from './records/records.module';
 import { UsersModule } from './users/users.module';
-import { UsersModule } from './users/users.module';
-import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -19,7 +17,7 @@ import { UsersModule } from './users/users.module';
       host: db.host,
       port: 3306,
       username: 'root',
-      password: 'lC140822',
+      password: 'nevekdlh',
       database: 'challenge',
       synchronize: true,
       dropSchema: false,
