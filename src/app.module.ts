@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AccountsModule } from './accounts/accounts.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { db } from './config/connection';
@@ -11,17 +11,25 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: db.host,
-      port: 3306,
-      username: 'root',
-      password: 'nevekdlh',
-      database: 'challenge',
-      synchronize: true,
-      dropSchema: false,
-      autoLoadEntities: true,
+    ConfigModule.forRoot({
+      envFilePath: [`.env`],
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        return {
+          type: 'mysql',
+          synchronize: true,
+          dropSchema: false,
+          autoLoadEntities: true,
+          host: configService.get('DB_HOST'),
+          port: configService.get('DB_PORT'),
+          username: configService.get('DB_USERNAME'),
+          password: configService.get('DB_PASSWORD'),
+          database: configService.get('DB_DATABASE'),
+        };
+      },
     }),
     AccountsModule,
     UserTypeModule,

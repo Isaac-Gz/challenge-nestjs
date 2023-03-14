@@ -6,13 +6,16 @@ import {
   Post,
   Body,
   Param,
+  UseGuards,
 } from '@nestjs/common';
 import { RecordsService } from './records.service';
 import { Record } from './record.entity';
 import { CreateRecordDto } from './dto/create-record.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('records')
+@UseGuards(AuthGuard())
 @ApiTags('Records')
 export class RecordsController {
   constructor(private recordService: RecordsService) {}
