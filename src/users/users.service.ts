@@ -1,21 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import {
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common/exceptions';
-import { AuthCredentialsDto } from './dto/auth-credentials.dto';
+import { NotFoundException } from '@nestjs/common/exceptions';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
 import { UserRepository } from './users.repository';
-import * as bcrypt from 'bcrypt';
-import { JwtService } from '@nestjs/jwt/dist';
-import { JwtPayload } from './jwt-payload.interface';
 @Injectable()
 export class UsersService {
-  constructor(
-    private readonly userRepository: UserRepository,
-    private jwtService: JwtService,
-  ) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
   async getUsers(): Promise<User[]> {
     return await this.userRepository.find();
@@ -63,20 +53,5 @@ export class UsersService {
     await this.userRepository.save(user);
 
     return user;
-  }
-
-  async singIn(
-    authCredentialsDto: AuthCredentialsDto,
-  ): Promise<{ accessToken: string }> {
-    const { mail, password } = authCredentialsDto;
-    const user = await this.userRepository.findOne({ where: { mail } });
-
-    if (user && (await bcrypt.compare(password, user.password))) {
-      const payload: JwtPayload = { mail };
-      const accessToken: string = await this.jwtService.sign(payload);
-      return { accessToken };
-    } else {
-      throw new UnauthorizedException('Please check your login credentials');
-    }
   }
 }

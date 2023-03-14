@@ -29,6 +29,7 @@ export class AccountRepository extends Repository<Account> {
       return account;
     } catch (error) {
       this.logger.error(`Failed to create an account`);
+      console.error('Failed to create account', error);
       throw new InternalServerErrorException();
     }
   }
