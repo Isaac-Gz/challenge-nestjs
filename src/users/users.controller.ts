@@ -12,6 +12,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UserMailDto } from './dto/get-user-mail.dto';
 import { User } from './user.entity';
 import { UsersService } from './users.service';
 
@@ -38,6 +39,12 @@ export class UsersController {
   @Get('/:id')
   getUserById(@Param('id') id: number): Promise<User> {
     return this.userService.getUserById(id);
+  }
+
+  @Version('2')
+  @Post('/mail')
+  getUserByMail(@Body() userMailDto: UserMailDto): Promise<User> {
+    return this.userService.getUserByMail(userMailDto);
   }
 
   @Version('1')

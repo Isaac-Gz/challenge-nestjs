@@ -14,6 +14,7 @@ async function bootstrap() {
   app.enableVersioning({
     type: VersioningType.URI,
   });
+  app.enableCors();
 
   const config = new DocumentBuilder()
     .setTitle('Challenge API')
