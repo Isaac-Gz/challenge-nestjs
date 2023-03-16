@@ -4,6 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UserMailDto } from './dto/get-user-mail.dto';
 import { User } from './user.entity';
 import { UserRepository } from './users.repository';
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UsersService {
   constructor(private readonly userRepository: UserRepository) {}
@@ -50,12 +51,14 @@ export class UsersService {
       tec_knowledge,
     }: CreateUserDto,
   ): Promise<User> {
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
     const user = await this.getUserById(id);
 
     user.type_id = type_id;
     user.name = name;
     user.mail = mail;
-    user.password = password;
+    user.password = hashedPassword;
     user.english_level = english_level;
     user.tec_knowledge = tec_knowledge;
 
