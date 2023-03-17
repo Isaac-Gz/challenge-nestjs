@@ -67,4 +67,10 @@ export class UsersController {
   ): Promise<User> {
     return this.userService.updateUser(id, updateUserDto);
   }
+
+  @Version('2')
+  @Get('/name/:name')
+  getUserByName(@Param('name') name: string): Promise<User> {
+    return this.userService.getUserByName(name);
+  }
 }

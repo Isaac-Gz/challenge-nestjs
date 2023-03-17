@@ -52,4 +52,20 @@ export class RecordsService {
 
     return record;
   }
+
+  async getRecordsByUser(user_id: number): Promise<Record[]> {
+    return await this.recordRepository.find({ where: { user_id } });
+  }
+
+  async getRecordsByOldTeam(old_team_id: number): Promise<Record[]> {
+    return await this.recordRepository.find({ where: { old_team_id } });
+  }
+
+  async getRecordsByStartDate(start_date: string): Promise<Record[]> {
+    return await this.recordRepository.find({ where: { start_date } });
+  }
+
+  async getRecordsByEndDate(end_date: string): Promise<Record[]> {
+    return await this.recordRepository.find({ where: { end_date } });
+  }
 }

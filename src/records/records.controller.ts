@@ -54,4 +54,28 @@ export class RecordsController {
   ): Promise<Record> {
     return this.recordService.updateRecord(id, updateRecordDto);
   }
+
+  @Version('2')
+  @Get('/user/:id')
+  getRecordByUser(@Param('id') id: number): Promise<Record[]> {
+    return this.recordService.getRecordsByUser(id);
+  }
+
+  @Version('2')
+  @Get('/old_team/:id')
+  getRecordByOldTeam(@Param('id') id: number): Promise<Record[]> {
+    return this.recordService.getRecordsByOldTeam(id);
+  }
+
+  @Version('2')
+  @Get('/start_date/:date')
+  getRecordByStartDate(@Param('date') date: string): Promise<Record[]> {
+    return this.recordService.getRecordsByStartDate(date);
+  }
+
+  @Version('2')
+  @Get('/end_date/:date')
+  getRecordByEndDate(@Param('date') date: string): Promise<Record[]> {
+    return this.recordService.getRecordsByEndDate(date);
+  }
 }

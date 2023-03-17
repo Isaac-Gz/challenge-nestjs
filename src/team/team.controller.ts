@@ -15,7 +15,7 @@ import { CreateTeamDto } from './dto/create-team.dto';
 import { Team } from './team.entity';
 import { TeamService } from './team.service';
 
-@Controller('team')
+@Controller('teams')
 @ApiBearerAuth()
 @UseGuards(AuthGuard())
 @ApiTags('Teams')
