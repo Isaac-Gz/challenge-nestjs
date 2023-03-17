@@ -5,6 +5,7 @@ import { UserMailDto } from './dto/get-user-mail.dto';
 import { User } from './user.entity';
 import { UserRepository } from './users.repository';
 import * as bcrypt from 'bcrypt';
+import { UpdateUserDto } from './dto/update-user.dto';
 @Injectable()
 export class UsersService {
   constructor(private readonly userRepository: UserRepository) {}
@@ -44,6 +45,7 @@ export class UsersService {
     id: number,
     {
       type_id,
+      team_id,
       name,
       mail,
       password,
@@ -56,6 +58,7 @@ export class UsersService {
     const user = await this.getUserById(id);
 
     user.type_id = type_id;
+    user.team_id = team_id;
     user.name = name;
     user.mail = mail;
     user.password = hashedPassword;
@@ -73,5 +76,40 @@ export class UsersService {
       throw new NotFoundException('User not found');
     }
     return found;
+  }
+
+  async updateTeam(id: number, team: number): Promise<User> {
+    const user = await this.getUserById(id);
+
+    user.team_id = team;
+
+    await this.userRepository.save(user);
+
+    return user;
+  }
+
+  async updateNormalUser(
+    id: number,
+    {
+      type_id,
+      team_id,
+      name,
+      mail,
+      english_level,
+      tec_knowledge,
+    }: UpdateUserDto,
+  ): Promise<User> {
+    const user = await this.getUserById(id);
+
+    user.type_id = type_id;
+    user.team_id = team_id;
+    user.name = name;
+    user.mail = mail;
+    user.english_level = english_level;
+    user.tec_knowledge = tec_knowledge;
+
+    await this.userRepository.save(user);
+
+    return user;
   }
 }

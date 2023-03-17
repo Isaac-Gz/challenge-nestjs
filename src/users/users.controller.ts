@@ -13,6 +13,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserMailDto } from './dto/get-user-mail.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.entity';
 import { UsersService } from './users.service';
 
@@ -72,5 +73,23 @@ export class UsersController {
   @Get('/name/:name')
   getUserByName(@Param('name') name: string): Promise<User> {
     return this.userService.getUserByName(name);
+  }
+
+  @Version('2')
+  @Patch('/team_id/:id/:team')
+  updateTeam(
+    @Param('id') id: number,
+    @Param('team') team: number,
+  ): Promise<User> {
+    return this.userService.updateTeam(id, team);
+  }
+
+  @Version('2')
+  @Patch('/normal/:id')
+  updateNormalUser(
+    @Param('id') id: number,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<User> {
+    return this.userService.updateNormalUser(id, updateUserDto);
   }
 }

@@ -9,6 +9,9 @@ export class User {
   type_id: number;
 
   @Column()
+  team_id: number;
+
+  @Column()
   name: string;
 
   @Column({ unique: true })

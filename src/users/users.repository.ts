@@ -16,6 +16,7 @@ export class UserRepository extends Repository<User> {
 
   async createUser({
     type_id,
+    team_id,
     name,
     mail,
     password,
@@ -29,6 +30,7 @@ export class UserRepository extends Repository<User> {
 
     const user = this.create({
       type_id,
+      team_id,
       name,
       mail,
       password: hashedPassword,
