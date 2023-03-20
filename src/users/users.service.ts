@@ -34,11 +34,12 @@ export class UsersService {
     return this.userRepository.createUser(createUserDto);
   }
 
-  async deleteUser(id: number): Promise<void> {
+  async deleteUser(id: number): Promise<string> {
     const result = await this.userRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException('User not found');
     }
+    return 'User deleted';
   }
 
   async updateUser(
