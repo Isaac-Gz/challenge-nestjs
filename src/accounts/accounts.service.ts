@@ -23,11 +23,12 @@ export class AccountsService {
     return this.accountRepository.createAccount(createAccount);
   }
 
-  async deleteAccount(id: number): Promise<void> {
+  async deleteAccount(id: number): Promise<string> {
     const result = await this.accountRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException(`Account with id ${id} not found`);
     }
+    return 'Account deleted';
   }
 
   async updateAccount(

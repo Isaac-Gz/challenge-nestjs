@@ -6,6 +6,8 @@ import { AccountsService } from './accounts.service';
 const mockAccountRepository = () => ({
   find: jest.fn(),
   findOne: jest.fn(),
+  save: jest.fn(),
+  delete: jest.fn(),
   createAccount: jest.fn(),
   updateAccount: jest.fn(),
 });
@@ -33,7 +35,7 @@ describe('AccountService', () => {
   });
 
   describe('getAccounts', () => {
-    it('calls AccountRepository.find() and returns the result', async () => {
+    it('calls AccountRepository.find and returns the result', async () => {
       accountRepository.find.mockResolvedValue('someValue');
       const result = await accountService.getAllAccounts();
       expect(result).toEqual('someValue');
@@ -63,11 +65,19 @@ describe('AccountService', () => {
     });
   });
 
-  //   describe('updateAccount', () => {
-  //     it('calls AccountRepository.updateAccount and returns the result', async () => {
-  //       accountRepository.findOne.mockResolvedValue(0);
-  //       const result = await accountService.updateAccount(0, mockAccount);
-  //       expect(result).toEqual(mockAccount);
-  //     });
+  // describe('updateAccount', () => {
+  //   it('calls AccountRepository.updateAccount and returns the result', async () => {
+  //     accountRepository.save.mockResolvedValue(0);
+  //     const result = await accountService.updateAccount(1, mockAccount);
+  //     expect(result).toEqual(mockAccount);
   //   });
+  // });
+
+  describe('deleteAccount', () => {
+    it('calls AccountRepository.deleteAccount and returns the result', async () => {
+      accountRepository.delete.mockResolvedValue({ affected: 1 });
+      const result = accountService.deleteAccount(0);
+      expect(result).resolves.toBe('Account deleted');
+    });
+  });
 });

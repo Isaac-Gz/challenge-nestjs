@@ -23,11 +23,12 @@ export class RecordsService {
     return this.recordRepository.createRecord(createRecordDto);
   }
 
-  async deleteRecord(id: number): Promise<void> {
+  async deleteRecord(id: number): Promise<string> {
     const result = await this.recordRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException('Record not found');
     }
+    return 'Record deleted';
   }
 
   async updateRecord(
