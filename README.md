@@ -40,3 +40,14 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## .env
+
+```bash
+DB_HOST =
+DB_PORT =
+DB_USERNAME = 
+DB_PASSWORD = 
+DB_DATABASE =
+JWT_SECRET = 
+```
